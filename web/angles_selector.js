@@ -20,11 +20,13 @@ const STYLES = `
     .control-btn.close-up { background: #FF6B6B; }
     .control-btn.medium { background: #FFD93D; color: #333; }
     .control-btn.wide { background: #6BCB77; }
-    .legend { display: flex; gap: 10px; margin-top: 6px; font-size: 10px; }
-    .legend-item { display: flex; align-items: center; gap: 4px; cursor: pointer; padding: 2px 6px; border-radius: 3px; transition: opacity 0.2s; }
+    .bottom-controls { display: flex; gap: 8px; margin-top: 8px; align-items: center; flex-wrap: wrap; }
+    .legend { display: flex; gap: 8px; font-size: 10px; align-items: center; }
+    .legend-item { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; padding: 2px 6px; border-radius: 3px; }
     .legend-item:hover { background: rgba(255,255,255,0.1); }
-    .legend-item.hidden { opacity: 0.4; text-decoration: line-through; }
-    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .legend-item.layer-hidden { opacity: 0.4; }
+    .legend-item.layer-hidden span:last-child { text-decoration: line-through; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 `;
 
 function getTemplate() {
@@ -39,9 +41,9 @@ function getTemplate() {
         <button class="control-btn wide">${t('selectAllWide')}</button>
     </div>
     <div class="legend">
-        <div class="legend-item" data-layer="0"><span class="legend-dot" style="background:#FF6B6B"></span>${t('closeUp')}</div>
-        <div class="legend-item" data-layer="1"><span class="legend-dot" style="background:#FFD93D"></span>${t('medium')}</div>
-        <div class="legend-item" data-layer="2"><span class="legend-dot" style="background:#6BCB77"></span>${t('wide')}</div>
+        <div class="legend-item" data-layer="0"><span class="legend-dot" style="background:#FF6B6B"></span><span>${t('closeUp')}</span></div>
+        <div class="legend-item" data-layer="1"><span class="legend-dot" style="background:#FFD93D"></span><span>${t('medium')}</span></div>
+        <div class="legend-item" data-layer="2"><span class="legend-dot" style="background:#6BCB77"></span><span>${t('wide')}</span></div>
     </div>
 `;
 }
@@ -86,10 +88,11 @@ app.registerExtension({
 
             // 图例点击切换层可见性
             container.querySelectorAll('.legend-item').forEach(item => {
-                item.onclick = () => {
+                item.onclick = (e) => {
+                    e.stopPropagation();
                     const layer = parseInt(item.dataset.layer);
                     const visible = this.selector3D.toggleLayerVisibility(layer);
-                    item.classList.toggle('hidden', !visible);
+                    item.classList.toggle('layer-hidden', !visible);
                 };
             });
         };
