@@ -21,7 +21,7 @@ LOAR 下载地址https://huggingface.co/fal/Qwen-Image-Edit-2511-Multiple-Angles
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/your-repo/comfyui-angles-selector.git
+git clone https://github.com/jianglinbin/comfyui-angles-selector.git
 ```
 
 重启 ComfyUI 即可使用。
@@ -79,7 +79,7 @@ Clone this repository to ComfyUI's `custom_nodes` directory:
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone https://github.com/your-repo/comfyui-angles-selector.git
+git clone https://github.com/jianglinbin/comfyui-angles-selector.git
 ```
 
 Restart ComfyUI to use.
